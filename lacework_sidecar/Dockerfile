@@ -32,7 +32,5 @@ RUN ln -s /shared/bin/busybox /shared/bin/whoami
 
 ADD lacework-sidecar.sh /shared/bin
 
-ENV RUN_CMD "/app/myapp"
-
 VOLUME /shared
 
