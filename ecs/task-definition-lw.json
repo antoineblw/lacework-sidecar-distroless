@@ -21,8 +21,8 @@
       "entryPoint": ["/shared/bin/sh", "/shared/bin/lacework-sidecar.sh"],
       "secrets" : [
 	  {
-            "name": "LW_CONFIG",
-            "valueFrom": "arn:aws:secretsmanager:ca-central-1:613680581058:secret:LW_CONFIG-k4y1pW"
+            "name": "LaceworkAccessToken",
+            "valueFrom": "arn:aws:secretsmanager:us-east-1:613680581058:secret:LaceworkAccessToken-yRtObX"
           }
 
       ],
@@ -56,7 +56,7 @@
     },
     {
           "name": "datacollector-sidecar",
-          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:40",
+          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:42",
           "essential": false
     }
   ]

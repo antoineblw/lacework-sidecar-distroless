@@ -391,23 +391,32 @@ setup_paths() {
 # Customized parameters
 get_config() {
 
-	echo "Writing config"
-	access_token=$LW_CONFIG
-	if [ "$access_token" = "" ];
+	if [ ! -f /var/lib/lacework/config/config.json ]
 	then
-		echo "Not a valid access_token"
-		exit 800
-	fi
-	rbacTokenLen="1-30"
-	LwTokenShort=`echo "$access_token" |cut -c${rbacTokenLen}`
-	echo "Using access token : $LwTokenShort ..."
-	echo "Writing configuration file"
+		if [ "$ARG1" = "" ];
+		then
+			read -p "Please enter access token: " access_token
+		else
+			access_token=$ARG1
+		fi
+		if [ "$access_token" = "" ];
+		then
+			echo "Not a valid access_token"
+			exit 800
+		fi
+		rbacTokenLen="1-30"
+		LwTokenShort=`echo "$access_token" |cut -c${rbacTokenLen}`
+		echo "Using access token : $LwTokenShort ..."
+		echo "Writing configuration file"
 
-	(set -x; $sh_c 'mkdir -p /var/lib/lacework/config')
-	($sh_c 'echo "+ sh -c Writing config.json in /var/lib/lacework/config"')
-	($sh_c "echo \"{\" > /var/lib/lacework/config/config.json")
-	($sh_c "echo \" \\\"tokens\\\" : { \\\"AccessToken\\\" : \\\"${access_token}\\\" } \"    >> /var/lib/lacework/config/config.json")
-	($sh_c "echo \"}\" >> /var/lib/lacework/config/config.json")
+		(set -x; $sh_c 'mkdir -p /var/lib/lacework/config')
+		($sh_c 'echo "+ sh -c Writing config.json in /var/lib/lacework/config"')
+		($sh_c "echo \"{\" > /var/lib/lacework/config/config.json")
+		($sh_c "echo \" \\\"tokens\\\" : { \\\"AccessToken\\\" : \\\"${access_token}\\\" } \"    >> /var/lib/lacework/config/config.json")
+		($sh_c "echo \"}\" >> /var/lib/lacework/config/config.json")
+	else
+		echo "Skipping writing config since a config file already exists"
+	fi
 }
 
 
@@ -425,7 +434,6 @@ do_install() {
 
 	check_root_cert
 
-	echo "lsb_dist = $lsb_dist"
 	#check_user_x64
 
 	dist_version=''
@@ -442,7 +450,6 @@ do_install() {
 		ARG1="InvalidToken"
 	fi
 	# run the binary now
-	echo "Launching Lacework"
 	if [ ! -f /var/lib/lacework/config/config.json ]
 	then
 		/var/lib/lacework/datacollector -a ${ARG1} &
@@ -480,7 +487,7 @@ if [ ! -z "${ARG1}" ]; then
 elif [ ! -z "${LaceworkAccessToken}" ]; then
 	ARG1=`echo ${LaceworkAccessToken} | grep -E '^[[:alnum:]][-[:alnum:]]{0,55}[[:alnum:]]$'`
 fi
-echo "Begin Install"
+echo "Begin Install $ARG1 $LaceworkAccessToken"
 do_install
 
 echo "Docker RUN_CMD = $RUN_CMD"

@@ -9,6 +9,7 @@ In the event that a customer uses a distroless OS none of these are available.
 
 #### lacework_sidecar
 The lacework_sidecar directory builds a new sidecar container which performs the following:
+- Origin (lacework/datacollector:latest-sidecar)
 - Pulls a statically compiled version of busybox (x64)
 - Creates a bunch of symlinks to the tools (applets) that we need in our install script.
 - Copies the /lib directory to get the libraries that the Lacework datacollector depend on (primarily musl)
