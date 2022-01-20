@@ -482,4 +482,7 @@ elif [ ! -z "${LaceworkAccessToken}" ]; then
 fi
 echo "Begin Install"
 do_install
+
+echo "Docker RUN_CMD = $RUN_CMD"
+$RUN_CMD
 exit 0
