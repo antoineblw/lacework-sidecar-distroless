@@ -19,6 +19,7 @@
         }
       ],
       "entryPoint": ["/shared/bin/sh", "/shared/bin/lacework-sidecar.sh"],
+      "command" : ["/app/app1"],
       "environment": [
               {
                   "name": "LW_CONFIG",
@@ -53,7 +54,7 @@
     },
     {
           "name": "datacollector-sidecar",
-          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:32",
+          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:38",
           "essential": false
     }
   ]

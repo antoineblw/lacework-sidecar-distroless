@@ -358,18 +358,12 @@ die() {
 
 setup_paths() {
 	DisplayVer=$version
-	DCSUFFIX=.gz
-	case "$lsb_dist" in
-		*alpine*)
-			DCSUFFIX=-musl.gz
-			file_sha1=$(sha1sum /var/lib/lacework-backup/${DisplayVer}/datacollector$DCSUFFIX | cut -d " " -f 1)
-			exp_sha1=${dc_musl_sha1}
-			;;
-		*)
-			file_sha1=$(sha1sum /var/lib/lacework-backup/${DisplayVer}/datacollector$DCSUFFIX | cut -d " " -f 1)
-			exp_sha1=${dc_sha1}
-			;;
-	esac
+	DCSUFFIX=-musl.gz
+	file_sha1=$(sha1sum /var/lib/lacework-backup/${DisplayVer}/datacollector$DCSUFFIX | cut -d " " -f 1)
+	exp_sha1=${dc_musl_sha1}
+
+        cp -r /shared/lib/* /lib
+
 	if [ "${exp_sha1}" != "${file_sha1}" ]; then
 		echo "----------------------------------"
 		echo "Download sha1 checksum failed, [${exp_sha1}] [${file_sha1}]"
@@ -449,14 +443,11 @@ do_install() {
 	fi
 	# run the binary now
 	echo "Launching Lacework"
-	ls -l /var/lib
-	echo "Listing /var/lib/lacework now"
-	ls -lR /var/lib/lacework
 	if [ ! -f /var/lib/lacework/config/config.json ]
 	then
-		/var/lib/lacework/datacollector -a ${ARG1}
+		/var/lib/lacework/datacollector -a ${ARG1} &
 	else
-		/var/lib/lacework/datacollector
+		/var/lib/lacework/datacollector &
 	fi 
 
 	echo "Lacework successfully installed and Launched"

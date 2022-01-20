@@ -3,13 +3,16 @@ FROM lacework/datacollector:latest-sidecar
 
 RUN mkdir /shared
 RUN mkdir /shared/bin
+RUN mkdir /shared/lib
 ADD busybox /shared/bin/busybox
 #ADD https://github.com/mosajjal/binary-tools/raw/master/x64/busybox /shared/bin/busybox
 #RUN chmod +x /shared/bin/busybox
 
+RUN cp -r /lib/* /shared/lib
 RUN ln -s /shared/bin/busybox /shared/bin/cat
 RUN ln -s /shared/bin/busybox /shared/bin/chown
 RUN ln -s /shared/bin/busybox /shared/bin/chmod
+RUN ln -s /shared/bin/busybox /shared/bin/cp
 RUN ln -s /shared/bin/busybox /shared/bin/cut
 RUN ln -s /shared/bin/busybox /shared/bin/echo
 RUN ln -s /shared/bin/busybox /shared/bin/grep
