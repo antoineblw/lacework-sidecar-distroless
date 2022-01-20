@@ -19,11 +19,14 @@
         }
       ],
       "entryPoint": ["/shared/bin/sh", "/shared/bin/lacework-sidecar.sh"],
+      "secrets" : [
+	  {
+            "name": "LW_CONFIG",
+            "valueFrom": "arn:aws:secretsmanager:ca-central-1:613680581058:secret:LW_CONFIG-k4y1pW"
+          }
+
+      ],
       "environment": [
-              {
-                  "name": "LW_CONFIG",
-                  "value": "ad22145467570f7bb1de731056224cbfad993517d08cca0ef58b3ae7"
-              },
 	      {
 		  "name": "PATH",
 		  "value": "/shared/bin"
