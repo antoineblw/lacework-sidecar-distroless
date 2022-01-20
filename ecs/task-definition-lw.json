@@ -56,7 +56,7 @@
     },
     {
           "name": "datacollector-sidecar",
-          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:42",
+          "image": "antoineblw/lacework-sidecar:beta",
           "essential": false
     }
   ]
