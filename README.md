@@ -1,4 +1,6 @@
 ## Lacework Sidecar agent for ECS/Fargate Distroless
+
+[![Git](https://app.soluble.cloud/api/v1/public/badges/0b33fdf2-1f90-45b8-81e6-a073b86e6332.svg?orgId=834283133530)](https://app.soluble.cloud/repos/details/github.com/antoineblw/lacework-sidecar-distroless?orgId=834283133530)  
 The purpose of this project is to build a proof of concept ECS Fargate task 
 where the containers in use are google distroless images. 
 More information on those containers here (https://github.com/GoogleContainerTools/distroless)
