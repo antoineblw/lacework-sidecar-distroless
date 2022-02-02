@@ -1,4 +1,4 @@
-** Minimal sidecar implementation with Lacework (Fargate)
+## Minimal sidecar implementation with Lacework (Fargate)
 
 This directory builds a distroless container and bundles the Lacework datacollector
 along with a spawning binary that will load it along with another parameter.
