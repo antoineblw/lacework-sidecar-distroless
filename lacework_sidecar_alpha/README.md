@@ -33,6 +33,7 @@ In order to use this in ECS/Fargate you will need to do the following:
 3. Define the entrypoint for your container as /shared/bin/sh /shared/bin/lacework-sidecar.sh
 4. Add the sidecar as a non-essential container.
 5. Use volumes-from to mount lacework sidecar volume to your container needing to be monitored.
+6. Define LaceworkAccessToken in your enironment variables or secrets, this is your agent token
 
 ### task-definition-lw.json
 You can refer to task-definition-lw.json for a sample functional ECS deployment (you'd need to tweak to
