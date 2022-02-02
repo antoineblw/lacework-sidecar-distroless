@@ -34,5 +34,6 @@ In order to use this in ECS/Fargate you will need to do the following:
 4. Add the sidecar as a non-essential container.
 5. Use volumes-from to mount lacework sidecar volume to your container needing to be monitored.
 
+### task-definition-lw.json
 You can refer to task-definition-lw.json for a sample functional ECS deployment (you'd need to tweak to
 your own container) 
