@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+    lacework-sidecar:
+       container_name: lacework-sidecar
+       image: lacework-ecs-dataconnector:latest
+       pid: "host"
+       network_mode: "host"
+       volumes:
+               - /shared
+
+    myapp:
+       container_name: myapp
+       image: myapp:latest
+       pid: "host"
+       network_mode: "host"
+       volumes_from:
+               - lacework-sidecar:rw
+       entrypoint: /shared/bin/sh /shared/bin/lacework-sidecar.sh
+       environment:
+         - PATH=/shared/bin
+         - LaceworkAccessToken=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
