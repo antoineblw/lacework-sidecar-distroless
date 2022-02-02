@@ -20,3 +20,19 @@ This is meant to help local testing as opposed to pushing everything out into EC
 ecs fargate does in terms of loading 2 containers (lacework-sidecar, myapp), sharing a volume, 
 overriding the entrypoint in myapp by launching the sidecar app (lacework-sidecar.sh). LaceworkAccessToken
 needs to be set to your agent token.
+
+
+### Deployment
+A published version of this container is on dockerhub here *antoineblw/lacework-sidecar:beta*
+
+In order to use this in ECS/Fargate you will need to do the following:
+1. In your Dockerfile for your container, define an environment variable named RUN_CMD that is the same 
+   as your command/entrypoint. (e.g ENV RUN_CMD "/app/app1 firstArg). Refer to distroless_app/Dockerfile for
+   an example of this.
+2. Your PATH must include /shared/bin
+3. Define the entrypoint for your container as /shared/bin/sh /shared/bin/lacework-sidecar.sh
+4. Add the sidecar as a non-essential container.
+5. Use volumes-from to mount lacework sidecar volume to your container needing to be monitored.
+
+You can refer to task-definition-lw.json for a sample functional ECS deployment (you'd need to tweak to
+your own container) 

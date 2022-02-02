@@ -1,0 +1,63 @@
+{
+  "family": "ecs-fargate-test-2",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "executionRoleArn": "arn:aws:iam::613680581058:role/ECSCoreInfra-EcsServiceRole-1NYNBU5YDZXZ7",
+  "taskRoleArn": "arn:aws:iam::613680581058:role/ECSCoreInfra-ECSTaskRole-BKV6VF073L0N",
+  "containerDefinitions": [
+    {
+      "name": "mysfits-img-1",
+      "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/myapp:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "http"
+        }
+      ],
+      "entryPoint": ["/shared/bin/sh", "/shared/bin/lacework-sidecar.sh"],
+      "secrets" : [
+	  {
+            "name": "LaceworkAccessToken",
+            "valueFrom": "arn:aws:secretsmanager:us-east-1:613680581058:secret:LaceworkAccessToken-yRtObX"
+          }
+
+      ],
+      "environment": [
+	      {
+		  "name": "PATH",
+		  "value": "/shared/bin"
+	      }
+          ],
+          "volumesFrom": [
+              {
+                  "sourceContainer": "datacollector-sidecar",
+                  "readOnly": true
+              }
+          ],
+          "dependsOn": [
+              {
+                  "containerName": "datacollector-sidecar",
+                  "condition": "SUCCESS"
+              }
+          ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+           "awslogs-region": "us-east-1",
+           "awslogs-group": "ecs-abtest-sinc",
+           "awslogs-stream-prefix": "FARGATE-node-"
+        }
+      }
+    },
+    {
+          "name": "datacollector-sidecar",
+          "image": "antoineblw/lacework-sidecar:beta",
+          "essential": false
+    }
+  ]
+}
