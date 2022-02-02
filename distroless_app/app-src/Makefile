@@ -1,9 +1,6 @@
 clean:
-	rm -f main
-app1:
-	g++ -o app1 -static app1.cpp
+	rm -f myapp
+myapp:
+	g++ -o myapp -static myapp.cpp
 
-app2:
-	g++ -o app2 -static app2.cpp
-
-all: app1 app2
+all: myapp
