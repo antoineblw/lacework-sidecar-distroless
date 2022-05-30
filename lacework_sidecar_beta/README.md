@@ -19,6 +19,7 @@ This is meant to help local testing as opposed to pushing everything out into EC
 ecs fargate does in terms of loading 2 containers (lacework-sidecar, myapp), sharing a volume,
 overriding the entrypoint in myapp by launching the sidecar app (runlacework). LaceworkAccessToken
 needs to be set to your agent token.
+>docker-compose up
 
 ### Deployment
 A published version of this container is on dockerhub here *antoineblw/lacework-sidecar-nz:beta*

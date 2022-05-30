@@ -7,6 +7,7 @@ services:
        pid: "host"
        network_mode: "host"
        volumes:
+               - /var/lib/lacework-backup 
                - /lacework
 
     myapp:
@@ -19,4 +20,5 @@ services:
        entrypoint: /lacework/runlacework
        environment:
          - LaceworkAccessToken=
+         - LaceworkVerbose=true
 

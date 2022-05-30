@@ -4,6 +4,7 @@ laceworkcompile:
 	CGO_ENABLED=0 $(GO) build -o runlacework -a -ldflags '-extldflags "-static"' runlacework.go
 
 build-container:
+	docker pull lacework/datacollector:latest-sidecar
 	docker build -t lacework-ecs-datacollector-static .
 
 clean:
@@ -16,5 +17,8 @@ aws:
 dockerhub:
 	docker tag lacework-ecs-datacollector-static antoineblw/lacework-sidecar-nz:beta
 	docker push antoineblw/lacework-sidecar-nz:beta
+
+task:
+	aws ecs register-task-definition --cli-input-json file://./task-definition-lw.json
 
 all: laceworkcompile build-container

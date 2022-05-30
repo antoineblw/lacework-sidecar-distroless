@@ -6,8 +6,8 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "executionRoleArn": "arn:aws:iam::613680581058:role/ECSCoreInfra-EcsServiceRole-1NYNBU5YDZXZ7",
-  "taskRoleArn": "arn:aws:iam::613680581058:role/ECSCoreInfra-ECSTaskRole-BKV6VF073L0N",
+  "executionRoleArn": "arn:aws:iam::613680581058:role/Fargate-iam-roles-EcsServiceRole-36IGJXB12VWH",
+  "taskRoleArn": "arn:aws:iam::613680581058:role/Fargate-iam-roles-ECSTaskRole-7446OF1ZM0LS",
   "containerDefinitions": [
     {
       "name": "mysfits-img-1",
