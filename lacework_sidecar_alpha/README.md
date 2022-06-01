@@ -10,10 +10,11 @@ Performs the following
 - Stores all the above in /shared/bin and /shared/lib
 - exposes /shared as a volume so that it can be mounted elsewhere (ECS volumesFrom).
 - A relatively hacked up version of the lacework launch script.
-  - use /shared/bin/sh
-  - copy contents of /shared/lib/ to /lib
-  - removes the alpine check for which datacollector binary to run (so that we use the musl version)
-  - ends by running the environment variable RUN_CMD
+  1. use /shared/bin/sh
+  2. copy contents of /shared/lib/ to /lib
+  3. removes the alpine check for which datacollector binary to run (so that we use the musl version)
+  4. ends by running the environment variable RUN_CMD
+  5. Adds /shared/bin to the env PATH
 
 ### docker-compose.yaml
 This is meant to help local testing as opposed to pushing everything out into ECS. This mimics what
@@ -23,7 +24,7 @@ needs to be set to your agent token.
 
 
 ### Deployment
-A published version of this container is on dockerhub here *antoineblw/lacework-sidecar:beta*
+A published version of this container is on dockerhub here *antoineblw/lacework-sidecar:alpha*
 
 In order to use this in ECS/Fargate you will need to do the following:
 1. In your Dockerfile for your container, define an environment variable named RUN_CMD that is the same 
