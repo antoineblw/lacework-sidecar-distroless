@@ -24,7 +24,7 @@ needs to be set to your agent token.
 
 
 ### Deployment
-A published version of this container is on dockerhub here *antoineblw/lacework-sidecar:alpha*
+A published version of this container is on dockerhub here *antoineblw/lacework-sidecar-nz:alpha*
 
 In order to use this in ECS/Fargate you will need to do the following:
 1. In your Dockerfile for your container, define an environment variable named RUN_CMD that is the same 
