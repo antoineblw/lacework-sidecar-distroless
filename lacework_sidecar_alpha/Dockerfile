@@ -8,7 +8,8 @@ ADD busybox /shared/bin/busybox
 #ADD https://github.com/mosajjal/binary-tools/raw/master/x64/busybox /shared/bin/busybox
 #RUN chmod +x /shared/bin/busybox
 
-RUN cp -r /lib/* /shared/lib
+RUN cp /lib/ld-musl-x86_64.so.1 /shared/lib/ld-musl-x86_64.so.1
+
 RUN ln -s /shared/bin/busybox /shared/bin/cat
 RUN ln -s /shared/bin/busybox /shared/bin/chown
 RUN ln -s /shared/bin/busybox /shared/bin/chmod
@@ -25,6 +26,7 @@ RUN ln -s /shared/bin/busybox /shared/bin/rm
 RUN ln -s /shared/bin/busybox /shared/bin/sed
 RUN ln -s /shared/bin/busybox /shared/bin/sh
 RUN ln -s /shared/bin/busybox /shared/bin/sha1sum
+RUN ln -s /shared/bin/busybox /shared/bin/tail
 RUN ln -s /shared/bin/busybox /shared/bin/touch
 RUN ln -s /shared/bin/busybox /shared/bin/tr
 RUN ln -s /shared/bin/busybox /shared/bin/uname

@@ -1,5 +1,5 @@
 {
-  "family": "ecs-fargate-test-2",
+  "family": "ecs-fargate-test-alpha",
   "cpu": "256",
   "memory": "512",
   "networkMode": "awsvpc",
@@ -27,10 +27,10 @@
 
       ],
       "environment": [
-	      {
-		  "name": "PATH",
-		  "value": "/shared/bin"
-	      }
+              {
+                "name": "LaceworkVerbose",
+                "value": "true"
+              }
           ],
           "volumesFrom": [
               {
@@ -56,7 +56,7 @@
     },
     {
           "name": "datacollector-sidecar",
-          "image": "antoineblw/lacework-sidecar:beta",
+          "image": "613680581058.dkr.ecr.us-east-1.amazonaws.com/lacework-ecs-dataconnector:nz_alpha",
           "essential": false
     }
   ]
