@@ -1,0 +1,35 @@
+1,2c1
+< #!/shared/bin/sh
+< 
+---
+> #!/bin/sh
+18,19d16
+< export PATH=$PATH:/shared/bin
+< 
+298c295,301
+< 	DCSUFFIX=-musl
+---
+> 	case "$lsb_dist" in
+> 		*alpine*)
+> 			DCSUFFIX=-musl
+> 			;;
+> 		*)
+> 			;;
+> 	esac
+334,338d336
+< 		if [ ! -z "${LaceworkMemlimit}" ]; then
+< 		    echo "Setting lacework config memlimit to ${LaceworkMemlimit}"
+< 		    ($sh_c "echo \" ,\\\"memlimit\\\" : \\\"${LaceworkMemlimit}\\\" \"    >> /var/lib/lacework/config/config.json")
+<                 fi
+< 
+382,383d379
+< 	cp /shared/lib/* /lib
+< 
+441,442c437,440
+< echo "Docker RUN_CMD = $RUN_CMD"
+< $RUN_CMD
+---
+> # Optionally operate as ENTRYPOINT script (run customer CMD as presented by docker)
+> if [ "$#" -gt 0 ] && [ "${1}" = "${1#-}" ]; then
+> 	exec "$@"
+> fi
