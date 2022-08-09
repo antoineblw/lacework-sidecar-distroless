@@ -1,5 +1,4 @@
-#!/shared/bin/sh
-
+#!/bin/sh
 # Copyright 2014-2021 Lacework Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +13,6 @@
 #     See the License for the specific language governing permissions and
 #     limitations under the License.
 set -e
-
-export PATH=$PATH:/shared/bin
 
 #
 # This script is meant for quick & easy sidecar install via:
@@ -295,7 +292,13 @@ die() {
 
 setup_paths() {
 	DisplayVer=$VERSION
-	DCSUFFIX=-musl
+	case "$lsb_dist" in
+		*alpine*)
+			DCSUFFIX=-musl
+			;;
+		*)
+			;;
+	esac
 
 	if [ ! -d "/var/lib/lacework/${DisplayVer}" ]; then
 		mkdir -p "/var/lib/lacework/${DisplayVer}" || die "mkdir failed : /var/lib/lacework"
@@ -331,7 +334,6 @@ write_config() {
 		($sh_c "echo \"{\" > /var/lib/lacework/config/config.json")
 		($sh_c "echo \" \\\"tokens\\\" : { \\\"AccessToken\\\" : \\\"${TOKEN}\\\" } \"    >> /var/lib/lacework/config/config.json")
 		($sh_c "echo \" ,\\\"serverurl\\\" : \\\"${lw_server_url}\\\" \"    >> /var/lib/lacework/config/config.json")
-
 		($sh_c "echo \"}\" >> /var/lib/lacework/config/config.json")
 	else
 		echo "INFO: Skipping writing config since a config file already exists"
@@ -374,8 +376,6 @@ do_install() {
 	set_file_permissions
 
 	setup_paths
-
-	cp /shared/lib/* /lib
 
 	/var/lib/lacework/datacollector &
 
@@ -434,7 +434,9 @@ fi
 
 do_install
 
-echo "Docker RUN_CMD = $RUN_CMD"
-$RUN_CMD
+# Optionally operate as ENTRYPOINT script (run customer CMD as presented by docker)
+if [ "$#" -gt 0 ] && [ "${1}" = "${1#-}" ]; then
+	exec "$@"
+fi
 
 exit 0

@@ -1,35 +1,31 @@
-1,2c1
-< #!/shared/bin/sh
-< 
+1c1,2
+< #!/bin/sh
 ---
-> #!/bin/sh
-18,19d16
-< export PATH=$PATH:/shared/bin
-< 
-298c295,301
-< 	DCSUFFIX=-musl
+> #!/shared/bin/sh
+> 
+16a18,19
+> export PATH=$PATH:/shared/bin
+> 
+295,301c298
+< 	case "$lsb_dist" in
+< 		*alpine*)
+< 			DCSUFFIX=-musl
+< 			;;
+< 		*)
+< 			;;
+< 	esac
 ---
-> 	case "$lsb_dist" in
-> 		*alpine*)
-> 			DCSUFFIX=-musl
-> 			;;
-> 		*)
-> 			;;
-> 	esac
-334,338d336
-< 		if [ ! -z "${LaceworkMemlimit}" ]; then
-< 		    echo "Setting lacework config memlimit to ${LaceworkMemlimit}"
-< 		    ($sh_c "echo \" ,\\\"memlimit\\\" : \\\"${LaceworkMemlimit}\\\" \"    >> /var/lib/lacework/config/config.json")
-<                 fi
-< 
-382,383d379
-< 	cp /shared/lib/* /lib
-< 
-441,442c437,440
-< echo "Docker RUN_CMD = $RUN_CMD"
-< $RUN_CMD
+> 	DCSUFFIX=-musl
+336a334
+> 
+379a378,379
+> 	cp /shared/lib/* /lib
+> 
+437,440c437,438
+< # Optionally operate as ENTRYPOINT script (run customer CMD as presented by docker)
+< if [ "$#" -gt 0 ] && [ "${1}" = "${1#-}" ]; then
+< 	exec "$@"
+< fi
 ---
-> # Optionally operate as ENTRYPOINT script (run customer CMD as presented by docker)
-> if [ "$#" -gt 0 ] && [ "${1}" = "${1#-}" ]; then
-> 	exec "$@"
-> fi
+> echo "Docker RUN_CMD = $RUN_CMD"
+> $RUN_CMD
